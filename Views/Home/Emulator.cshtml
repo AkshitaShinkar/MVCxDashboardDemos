@@ -1,0 +1,16 @@
+﻿<div class="qr-wrapper">    
+    <img src="~/Content/qrcode.png"/>
+</div>
+
+<script>
+    function emulatorLoaded(emulator) {
+        emulator.contentWindow.MVCxDashboard.DashboardInitialized.AddHandler(function(s, e) { dxDemo.Navigation.saveToUrl("dashboardId", e.DashboardId) });
+        emulator.contentWindow.MVCxDashboard.DashboardStateChanged.AddHandler(function(s, e) { dxDemo.Navigation.saveToUrl("dashboardState", e.DashboardState) });
+        window.getDashboardControl = function() {
+            return $("iframe")[0].contentWindow.MVCxDashboard.getDashboardControl();
+        };
+    }
+</script>
+<div class="phone-wrapper">
+    <iframe id="emulator" src="~/MobileDashboard?@Request.QueryString" onload="emulatorLoaded(this)"></iframe>
+</div>

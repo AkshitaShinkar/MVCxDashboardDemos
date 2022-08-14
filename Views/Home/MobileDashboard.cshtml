@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    if(window.parent !== window && !DevExpress.devices.current().phone) {
+        DevExpress.devices.current("genericPhone");
+    }
+
+    function getDashboardControl() {
+        return MVCxDashboard.getDashboardControl();
+    }
+</script>
+
+<div class="demo-content" style="top:0;">
+    @Html.DevExpress().Dashboard(settings => {
+    settings.Name = "MVCxDashboard";
+    settings.Width = Unit.Percentage(100);
+    settings.Height = Unit.Percentage(100);
+    settings.WorkingMode = DevExpress.DashboardWeb.WorkingMode.ViewerOnly;
+    settings.ClientSideEvents.BeforeRender = "function (s) { onBeforeRender(s.getDashboardControl()); }";
+    settings.ClientSideEvents.DashboardTitleToolbarUpdated = "function(s,e) { onDashboardTitleToolbarUpdated({ component: s.getDashboardControl(), options: e.Options }); }";
+    settings.ClientSideEvents.DashboardInitialized = "function (s, args) { onDashboardChanged({ component: s.getDashboardControl(), dashboardId: args.DashboardId }); } ";
+    settings.IncludeDashboardIdToUrl = true;
+    settings.IncludeDashboardStateToUrl = true;
+}).GetHtml()
+</div>

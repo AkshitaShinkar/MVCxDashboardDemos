@@ -1,0 +1,21 @@
+﻿@model DevExpress.DashboardWeb.WorkingMode
+<script>
+    function getDashboardControl() {
+        return MVCxDashboard.getDashboardControl();
+    }
+</script>
+
+@Html.DevExpress().Dashboard(settings => {
+    settings.Name = "MVCxDashboard";
+    settings.WorkingMode = Model;
+    settings.Width = Unit.Percentage(100);
+    settings.Height = Unit.Percentage(100);
+    settings.IncludeDashboardIdToUrl = true;
+    settings.IncludeDashboardStateToUrl = true;
+    settings.AllowInspectAggregatedData = true;
+    settings.AllowInspectRawData = true;
+    settings.ClientSideEvents.BeforeRender = "function (s) { onBeforeRender(s.getDashboardControl()); }";
+    settings.ClientSideEvents.DashboardInitialized = "function (s, args) { onDashboardChanged({ component: s.getDashboardControl(), dashboardId: args.DashboardId }); } ";
+    settings.ClientSideEvents.DashboardTitleToolbarUpdated = "function(s,e) { onDashboardTitleToolbarUpdated({ component: s.getDashboardControl(), options: e.Options }); }";
+    settings.AllowCreateNewJsonConnection = true;
+}).GetHtml()

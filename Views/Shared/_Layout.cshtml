@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @{ int version = 2013; }
+    <link rel="icon" type="image/png" href="~/Content/favicon.ico" />
+    <title>Web Dashboard - ASP.NET MVC Dashboard Demo | DevExpress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="~/Content/styles.css?v=@version" rel="stylesheet" />
+    <link href="~/Content/sidebar/sidebar.css?v=@version" rel="stylesheet" />
+    <script>window.dxDemoName = "MVCWebDashboardDemo"; window.dxDemoPlatform = "an ASP.NET MVC application";</script>
+    <script src="~/Content/feedback.js?v=@version"></script>
+    <script src="~/Content/sidebar/sidebar.js?v=@version"></script>
+    <meta name="description" content="This sample app demonstrates use of the DevExpress Web Dashboard control within an ASP.NET/MVC application." />
+
+
+    @Html.DevExpress().GetStyleSheets(
+        Request.QueryString["colorSchema"] ?? "light",
+        new StyleSheet { ExtensionType = ExtensionType.Dashboard },
+        new StyleSheet { ExtensionType = ExtensionType.ClientRichEdit }
+
+    )
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionType = ExtensionType.Dashboard },
+        new Script { ExtensionType = ExtensionType.ClientRichEdit }
+    )
+    <script src="~/Content/chart-line-options-extension.js?v=@version"></script>
+    <script src="~/Content/scripts.js?v=@version"></script>
+</head>
+<body>
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Content/sidebar/sidebar.html")))
+
+    @RenderBody()
+
+    <!--          Custom Item Extensions          -->
+    <script src="~/Content/d3-funnel/d3.v4.min.js?v=@version"></script>
+    <script src="~/Content/d3-funnel/d3-funnel.min.js?v=@version"></script>
+    <script src="~/Content/d3-funnel/funnel-d3-item.js?v=@version"></script>
+    <script src="~/Content/online-map-item.js?v=@version"></script>
+    <script src="~/Content/webpage-item.js?v=@version"></script>
+    <!--          Custom API                      -->
+    <script src="~/Content/save-as-extension.js?v=@version"></script>
+    <!--                                          -->
+</body>
+</html>
